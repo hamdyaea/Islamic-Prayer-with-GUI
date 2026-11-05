@@ -65,12 +65,13 @@ class PrayerWindow(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Islamic Prayer — Times and Qiblah")
-        self.geometry("650x610")
+        self.emblem = tk.PhotoImage(file=str(Path(__file__).resolve().parent / "images/islamic-ui.png"))
+        self.world = tk.PhotoImage(file=str(Path(__file__).resolve().parent / "images/IslamicWorld-ui.png"))
         self.minsize(520, 520)
         self.configure(bg="#f4f6fa")
         frame = ttk.Frame(self, padding=22)
         frame.pack(fill="both", expand=True)
-        ttk.Label(frame, text="Islamic Prayer", font=("Sans", 19, "bold")).grid(
+        ttk.Label(frame, image=self.emblem, compound="left", text="Islamic Prayer", font=("Sans", 19, "bold")).grid(
             row=0, column=0, columnspan=2, sticky="w", pady=(0, 8)
         )
         ttk.Label(frame, text="Enter coordinates, UTC offset and calculation method.").grid(
@@ -104,7 +105,7 @@ class PrayerWindow(tk.Tk):
         ttk.Button(buttons, text="Calculate prayer times", command=self.calculate).pack(
             side="left", padx=(0, 12)
         )
-        ttk.Button(buttons, text="Find coordinates", command=lambda: webbrowser.open(
+        ttk.Button(buttons, image=self.world, compound="left", text="Find coordinates", command=lambda: webbrowser.open(
             "https://www.openstreetmap.org/"
         )).pack(side="left")
         self.result = tk.Text(frame, height=11, wrap="word", font=("Sans", 11),
